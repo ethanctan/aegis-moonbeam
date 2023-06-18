@@ -69,7 +69,7 @@ contract ConsumerDashboard {
     }
 
     // this function is triggered after a user fills in an public form, from which the output will be parsed into a string and stored on-chain
-    // to here is the address of the dapp, NOT the account that created its wallet, nor the wallet address
+    // to: here is the address of the dapp, NOT the account that created its wallet, nor the wallet address
     function fileDispute(
         address _to,
         string memory _output,

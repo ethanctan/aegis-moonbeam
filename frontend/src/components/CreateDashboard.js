@@ -1,36 +1,41 @@
 import { React, useState } from 'react';
-import { useContractFunction, useEthers, useCall, useEtherBalance } from '@usedapp/core';
 import { Button, CircularProgress, TextField, Grid } from '@mui/material';
 import { utils } from 'ethers';
 
-const CreateDashboard = ({ consumerDashboardGen }) => {
+const CreateDashboard = ({ consumerDashboardGen, signer }) => {
+  const [isLoading, setIsLoading] = useState(false);
 
-  const { account } = useEthers();
-  const { state, send } = useContractFunction(consumerDashboardGen, 'createDashboard');
+  const handleCreateDashboard = async () => {
+    try {
+      setIsLoading(true);
 
-  const handleTransaction = async () => { 
-    // if (chainId !== MoonbaseAlpha.chainId) {
-    //   await switchNetwork(MoonbaseAlpha.chainId);
-    // } // how to get chainid and switchnetwork?
-    send();
-    console.log(state);
+      // Prepare your transaction with gas
+      const tx = await consumerDashboardGen.connect(signer).createDashboard({
+        gasLimit: utils.hexlify(250000),
+        });
+
+      // Wait for the transaction to be confirmed
+      await tx.wait();
+
+      setIsLoading(false);
+      console.log('Dashboard created successfully!');
+    } catch (error) {
+      setIsLoading(false);
+      console.error('Error creating dashboard:', error);
+    }
   };
-
-  // Checks if transaction is still validating
-  const isMining = state?.status === 'Mining';
-  
-
 
   return (
     <div>
-        { account == null ? 'Connect Wallet First' : account }
-        <Button
-        variant='contained' color='primary' fullWidth
-        onClick={handleTransaction}
-        disabled={state.status === 'Mining' || account == null}
-        >
-            {isMining? <CircularProgress size={24} /> : 'Create Dashboard'}
-        </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        fullWidth
+        disabled={isLoading}
+        onClick={handleCreateDashboard}
+      >
+        {isLoading ? <CircularProgress size={24} /> : 'Create Dashboard'}
+      </Button>
     </div>
   );
 };

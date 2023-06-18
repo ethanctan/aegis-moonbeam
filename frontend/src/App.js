@@ -2,13 +2,15 @@ import './App.css';
 import { useEthers, useContractFunction, useTokenBalance, useCall, useEtherBalance } from '@usedapp/core';
 import { Button, Grid, Card } from '@mui/material';
 import { Box } from '@mui/system';
-import { Contract } from 'ethers';
+import { Contract, Wallet } from 'ethers';
+import { Web3Provider } from '@ethersproject/providers';
+
 
 import ConsumerDashboardGen from './out/ConsumerDashboardGen.sol/ConsumerDashboardGen.json';
 import ProtocolWalletGen from './out/ProtocolWalletGen.sol/ProtocolWalletGen.json';
 import DisputeResolutionCenter from './out/DisputeResolutionCenter.sol/DisputeResolutionCenter.json';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Consumer components
 import CreateDashboard from './components/CreateDashboard';
@@ -46,23 +48,27 @@ const addresses = {
   lottery: '0xD2A10434c44121F26385b1Cd944Ddc96B037Df63'
 }
 
-function App() {
+function App({ provider }) {
+
+  // for now we won't connect metamask, but hardcode my wallet instead.
+  // const signer = new Wallet('1f505417c00af3fb18d5d48afd892d8d318262e232d0fcba395a84ee7f71ee80', provider);
+  const signer = provider.getSigner();
+
 
   // Contract objects
-  const consumerDashboardGen = new Contract(addresses.consumerDashboardGen, ConsumerDashboardGen.abi);
-  const protocolWalletGen = new Contract(addresses.protocolWalletGen, ProtocolWalletGen.abi);
-  const disputeResolutionCenter = new Contract(addresses.disputeResolutionCenter, DisputeResolutionCenter.abi);
+  const consumerDashboardGen = new Contract(addresses.consumerDashboardGen, ConsumerDashboardGen.abi, signer);
+  const protocolWalletGen = new Contract(addresses.protocolWalletGen, ProtocolWalletGen.abi, signer);
+  const disputeResolutionCenter = new Contract(addresses.disputeResolutionCenter, DisputeResolutionCenter.abi, signer);
 
   // Connect metamask wallet
-  const { activateBrowserWallet, deactivate, account } = useEthers();
-  const handleWalletConnection = () => { // Handle the wallet toggle
-    if (account) deactivate();
-    else activateBrowserWallet();
-  };
+  // const { activateBrowserWallet, deactivate, account } = useEthers();
+  // const handleWalletConnection = () => { // Handle the wallet toggle
+  //   if (account) deactivate();
+  //   else activateBrowserWallet();
+  // };
 
   // Functions to interact with smart contracts
   // Use the useContractFunction() in useDApp (as opposed to the Moonbeam tutorial which has useCall -> this is only for reading info (gasless))
-  
 
   // Selector variables: Conditionally render Consumer.js, Juror.js or Protocol.js based on which selector button is clicked
   const [showJuror, setShowJuror] = useState(false);
@@ -86,11 +92,11 @@ function App() {
         justifyContent='center'
       >
         <Box position='absolute' top={8} right={16}>
-          <Button variant='contained' onClick={handleWalletConnection}>
-            {account
-              ? `Disconnect ${account.substring(0, 5)}...`
+          {/* <Button variant='contained' onClick={handleConnectWallet}>
+            {userAddress
+              ? `Disconnect ${userAddress.substring(0, 5)}...`
               : 'Connect Wallet'}
-          </Button>
+          </Button> */}
         </Box>
       </Grid>
 
@@ -142,12 +148,12 @@ function App() {
       {/* Conditional rendering of components */}
       {showJuror && <Juror />}
       {showConsumer && 
-       <CreateDashboard consumerDashboardGen={consumerDashboardGen} />      
+       <CreateDashboard consumerDashboardGen={consumerDashboardGen} signer={signer} />      
       }
       {showConsumer && 
-       <GetDashboardAddress consumerDashboardGen={consumerDashboardGen} />      
+       <GetDashboardAddress consumerDashboardGen={consumerDashboardGen} signer={signer} />      
       }
-      {showProtocol && <Protocol />}
+      {showProtocol && <Protocol protocolWalletGen={protocolWalletGen} signer={signer} />}
 
       {/* Back button to go back to selection screen */}
       {(showJuror || showConsumer || showProtocol) && 
@@ -177,7 +183,7 @@ function App() {
       <div className="bg-red-500 text-white">
         <p>If my background is red and text is white, Tailwind is working</p>
         {/* show metamask account */}
-        <p>Connected: {account}</p>
+        {/* <p>Connected: {account}</p> */}
       </div>
       {/* clear local storage */}
       <button onClick={() => {localStorage.clear(); window.location.reload();}}>Clear local storage</button>

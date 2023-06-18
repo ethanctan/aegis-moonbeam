@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Protocol = () => {
+const Protocol = ({ protocolWalletGen, signer }) => {
   return (
     <div>
       master protocol component
