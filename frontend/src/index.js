@@ -42,6 +42,7 @@ if (typeof window.ethereum !== 'undefined') {
   root.render(
     <React.StrictMode>
       <App provider={provider} />
+      <button onClick={handleConnectMetamask}>Connect Metamask</button>
     </React.StrictMode>
   );
 } else {
