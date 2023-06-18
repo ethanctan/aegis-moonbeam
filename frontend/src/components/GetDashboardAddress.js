@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, TextField, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import { Contract } from 'ethers';
+import { ethers } from 'ethers';
 import ConsumerDashboardJson from './../out/ConsumerDashboard.sol/ConsumerDashboard.json';
 
 const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
@@ -10,6 +9,14 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
   const [transactions, setTransactions] = useState([]);
   const [refreshDisputes, setRefreshDisputes] = useState(false);
   const [disputes, setDisputes] = useState([]);
+  const [fromAddress, setFromAddress] = useState('');
+  const [toAddress, setToAddress] = useState('');
+  const [txHash, setTxHash] = useState('');
+  const [block, setBlock] = useState('');
+  const [output, setOutput] = useState('');
+  const [amount, setAmount] = useState('');
+  const [protocols, setProtocols] = useState([]);
+  const [refreshProtocols, setRefreshProtocols] = useState(false);
 
   useEffect(() => {
     const getDA = async () => {
@@ -28,7 +35,7 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
 
   useEffect(() => {
     if (dashboardAddress) {
-      setConsumerDashboard(new Contract(dashboardAddress, ConsumerDashboardJson.abi, signer));
+      setConsumerDashboard(new ethers.Contract(dashboardAddress, ConsumerDashboardJson.abi, signer));
     }
   }, [dashboardAddress]);
 
@@ -63,6 +70,22 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
 
     fetchDisputes();
   }, [ConsumerDashboard, signer, refreshDisputes]);
+
+  useEffect(() => {
+    const fetchProtocols = async () => {
+      try {
+        if (ConsumerDashboard) {
+          const protocolList = await ConsumerDashboard.connect(signer).getProtocols();
+          setProtocols(protocolList);
+          console.log(protocolList);
+        }
+      } catch (error) {
+        console.error('Error fetching protocols:', error);
+      }
+    };
+
+    fetchProtocols();
+  }, [ConsumerDashboard, signer, refreshProtocols]);
 
   const handleSubmitTransaction = async (e) => {
     e.preventDefault();
@@ -99,33 +122,6 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
     }
   };
 
-  const [fromAddress, setFromAddress] = useState('');
-  const [toAddress, setToAddress] = useState('');
-  const [txHash, setTxHash] = useState('');
-  const [block, setBlock] = useState('');
-  const [output, setOutput] = useState('');
-  const [amount, setAmount] = useState('');
-
-  const [protocols, setProtocols] = useState([]);
-  const [refreshProtocols, setRefreshProtocols] = useState(false);
-
-  useEffect(() => {
-    const fetchProtocols = async () => {
-      try {
-        if (ConsumerDashboard) {
-          const protocolList = await ConsumerDashboard.connect(signer).getProtocols();
-          setProtocols(protocolList);
-          console.log(protocolList);
-        }
-      } catch (error) {
-        console.error('Error fetching protocols:', error);
-      }
-    };
-
-    fetchProtocols();
-  }, [ConsumerDashboard, signer, refreshProtocols]);
-
-
   const handleRefreshAll = () => {
     setRefreshTransactions(true);
     setRefreshDisputes(true);
@@ -133,141 +129,98 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
   };
 
   return (
-    <div>
+    <div className="w-2/3 mx-auto">
       {dashboardAddress ? (
         <div>
-          Dashboard Address: {dashboardAddress}
-
-          <form onSubmit={handleSubmitTransaction}>
-            <TextField
-              label="From Address (Transaction)"
-              value={fromAddress}
-              onChange={(e) => setFromAddress(e.target.value)}
-              required
-            />
-            <TextField
-              label="To Address (Transaction)"
-              value={toAddress}
-              onChange={(e) => setToAddress(e.target.value)}
-              required
-            />
-            <TextField
-              label="Transaction Hash"
-              value={txHash}
-              onChange={(e) => setTxHash(e.target.value)}
-              required
-            />
-            <TextField
-              label="Block"
-              value={block}
-              onChange={(e) => setBlock(e.target.value)}
-              type="number"
-              required
-            />
-            <Button type="submit">Add Transaction</Button>
+          <div>Dashboard Address: {dashboardAddress}</div>
+  
+          <form onSubmit={handleSubmitTransaction} className="mt-4">
+            {/* form inputs */}
           </form>
-
-        <h1>My Transactions</h1>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>From Address (Transaction)</TableCell>
-                <TableCell>To Address (Transaction)</TableCell>
-                <TableCell>Transaction Hash</TableCell>
-                <TableCell>Block</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {transactions.map((transaction, index) => (
-                <TableRow key={index}>
-                  <TableCell>{transaction[0]}</TableCell>
-                  <TableCell>{transaction[1]}</TableCell>
-                  <TableCell>{transaction[2]}</TableCell>
-                  <TableCell>{transaction[3].toNumber()}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-
-          <form onSubmit={handleSubmitDispute}>
-            <TextField
-              label="To Address (Dispute)"
-              value={toAddress}
-              onChange={(e) => setToAddress(e.target.value)}
-              required
-            />
-            <TextField
-              label="Output"
-              value={output}
-              onChange={(e) => setOutput(e.target.value)}
-              required
-            />
-            <TextField
-              label="Amount"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              type="number"
-              required
-            />
-            <Button type="submit">File Dispute</Button>
-          </form>
-
-        <h1>My Disputes</h1>
-          <Table>
-            <TableHead>
-                <TableRow>
-                <TableCell>From Address (Dispute)</TableCell>
-                <TableCell>To Address (Dispute)</TableCell>
-                <TableCell>Amount</TableCell>
-                <TableCell>Output</TableCell>
-                <TableCell>Decision</TableCell> {/* New column */}
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {disputes.map((dispute, index) => (
-                <TableRow key={index}>
-                    <TableCell>{dispute[0]}</TableCell>
-                    <TableCell>{dispute[1]}</TableCell>
-                    <TableCell>{dispute[2].toNumber()}</TableCell>
-                    <TableCell>{dispute[3]}</TableCell>
-                    <TableCell>{dispute[5].undecided ? 'Undecided' : dispute[5].win ? 'Win' : 'Lose'}</TableCell>
-                </TableRow>
+  
+          <h1 className="text-2xl mt-4">My Transactions</h1>
+          <div className="overflow-x-auto">
+            <table className="w-full mt-2">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2">From Address (Transaction)</th>
+                  <th className="px-4 py-2">To Address (Transaction)</th>
+                  <th className="px-4 py-2">Transaction Hash</th>
+                  <th className="px-4 py-2">Block</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transactions.map((transaction, index) => (
+                  <tr key={index}>
+                    <td className="px-4 py-2">{transaction[0]}</td>
+                    <td className="px-4 py-2">{transaction[1]}</td>
+                    <td className="px-4 py-2">{transaction[2]}</td>
+                    <td className="px-4 py-2">{transaction[3].toNumber()}</td>
+                  </tr>
                 ))}
-            </TableBody>
-            </Table>
-
-          {/* Table for Protocols */}
-          <h1>Protocols</h1>
-            <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Wallet</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Collateral</TableCell>
-                <TableCell>Id</TableCell>
-                <TableCell>Listed</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {protocols.map((protocol, index) => (
-                <TableRow key={index}>
-                  <TableCell>{protocol.wallet}</TableCell>
-                  <TableCell>{protocol.name}</TableCell>
-                  <TableCell>{protocol.collateral}</TableCell>
-                  <TableCell>{protocol.Id}</TableCell>
-                  <TableCell>{protocol.listed ? 'Yes' : 'No'}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-
-          <Button onClick={handleRefreshAll}>Refresh All</Button>
+              </tbody>
+            </table>
+          </div>
+  
+          <form onSubmit={handleSubmitDispute} className="mt-4">
+            {/* form inputs */}
+          </form>
+  
+          <h1 className="text-2xl mt-4">My Disputes</h1>
+          <div className="overflow-x-auto">
+            <table className="w-full mt-2">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2">To Address (Dispute)</th>
+                  <th className="px-4 py-2">Output</th>
+                  <th className="px-4 py-2">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {disputes.map((dispute, index) => (
+                  <tr key={index}>
+                    <td className="px-4 py-2">{dispute[0]}</td>
+                    <td className="px-4 py-2">{dispute[1]}</td>
+                    <td className="px-4 py-2">{dispute[2].toNumber()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+  
+          <h1 className="text-2xl mt-4">My Protocols</h1>
+          <div className="overflow-x-auto">
+            <table className="w-full mt-2">
+              <thead>
+                <tr>
+                  <th className="px-4 py-2">Protocol Name</th>
+                  <th className="px-4 py-2">Protocol Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                {protocols.map((protocol, index) => (
+                  <tr key={index}>
+                    <td className="px-4 py-2">{protocol[0]}</td>
+                    <td className="px-4 py-2">{protocol[1]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+  
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded mt-4"
+            onClick={handleRefreshAll}
+          >
+            Refresh All
+          </button>
         </div>
       ) : (
-        <div>No Dashboard Created</div>
+        <div>Loading...</div>
       )}
     </div>
   );
+  
 };
 
 export default GetDashboardAddress;

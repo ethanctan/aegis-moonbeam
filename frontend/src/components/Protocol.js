@@ -130,135 +130,136 @@ const Protocol = ({ protocolWalletGen, signer, provider }) => {
   }, [walletContract]);
 
   return (
-    <div>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            label="Protocol Address"
-            fullWidth
+    <div className="w-2/3 mx-auto">
+      <div className="grid grid-cols-1 gap-2">
+        <div>
+          <input
+            type="text"
+            placeholder="Protocol Address"
             value={protocolAddress}
             onChange={(e) => setProtocolAddress(e.target.value)}
+            className="p-2 border rounded w-full text-black"
           />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Name"
-            fullWidth
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="p-2 border rounded w-full text-black"
           />
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
+        </div>
+        <div>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
             disabled={isLoading}
             onClick={handleCreateWallet}
           >
-            {isLoading ? <CircularProgress size={24} /> : 'Create Wallet'}
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Protocol Address (for balance retrieval)"
-            fullWidth
+            {isLoading ? <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div> : 'Create Wallet'}
+          </button>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Protocol Address (for balance retrieval)"
             value={protocolAddress}
             onChange={(e) => setProtocolAddress(e.target.value)}
+            className="p-2 border rounded w-full text-black"
           />
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
+        </div>
+        <div>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
             disabled={isLoading}
             onClick={handleGetBalance}
           >
-            {isLoading ? <CircularProgress size={24} /> : 'Get Balance'}
-          </Button>
-        </Grid>
+            {isLoading ? <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div> : 'Get Balance'}
+          </button>
+        </div>
         {walletAddress && <WalletAddress />}
         {balance && (
-          <Grid item xs={12}>
+          <div>
             <div>Balance: {balance} ETH</div>
-          </Grid>
+          </div>
         )}
-        <Grid item xs={12}>
-          <TextField
-            label="Deposit Amount"
-            fullWidth
+        <div>
+          <input
+            type="text"
+            placeholder="Deposit Amount"
             value={depositAmount}
             onChange={(e) => setDepositAmount(e.target.value)}
+            className="p-2 border rounded w-full text-black"
           />
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
+        </div>
+        <div>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
             disabled={isLoading || !walletAddress}
             onClick={handleDeposit}
           >
-            {isLoading ? <CircularProgress size={24} /> : 'Deposit'}
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Withdraw Amount"
-            fullWidth
+            {isLoading ? <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div> : 'Deposit'}
+          </button>
+        </div>
+        <div>
+          <input
+            type="text"
+            placeholder="Withdraw Amount"
             value={withdrawAmount}
             onChange={(e) => setWithdrawAmount(e.target.value)}
+            className="p-2 border rounded w-full text-black"
           />
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
+        </div>
+        <div>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
             disabled={isLoading || !walletAddress}
             onClick={handleWithdraw}
           >
-            {isLoading ? <CircularProgress size={24} /> : 'Withdraw'}
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <Button
-            variant="contained"
-            color="primary"
+            {isLoading ? <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div> : 'Withdraw'}
+          </button>
+        </div>
+        <div>
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded"
             disabled={isLoading || !walletAddress}
             onClick={handleGetChargebacks}
           >
-            {isLoading ? <CircularProgress size={24} /> : 'Get Chargebacks'}
-          </Button>
-        </Grid>
-        <Grid item xs={12}>
+            {isLoading ? <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-white mr-2"></div> : 'Get Chargebacks'}
+          </button>
+        </div>
+        <div>
           {chargebacks.length > 0 ? (
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Amount</TableCell>
-                    <TableCell>To</TableCell>
-                    <TableCell>ID</TableCell>
-                    <TableCell>Reason</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
+            <div className="w-full">
+              <table className="w-full">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2">Amount</th>
+                    <th className="px-4 py-2">To</th>
+                    <th className="px-4 py-2">ID</th>
+                    <th className="px-4 py-2">Reason</th>
+                  </tr>
+                </thead>
+                <tbody>
                   {chargebacks.map((chargeback) => (
-                    <TableRow key={chargeback.id}>
-                      <TableCell>{chargeback.amount}</TableCell>
-                      <TableCell>{chargeback.to}</TableCell>
-                      <TableCell>{chargeback.id}</TableCell>
-                      <TableCell>{chargeback.reason}</TableCell>
-                    </TableRow>
+                    <tr key={chargeback.id}>
+                      <td className="px-4 py-2">{chargeback.amount}</td>
+                      <td className="px-4 py-2">{chargeback.to}</td>
+                      <td className="px-4 py-2">{chargeback.id}</td>
+                      <td className="px-4 py-2">{chargeback.reason}</td>
+                    </tr>
                   ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                </tbody>
+              </table>
+            </div>
           ) : (
             <div>No chargebacks yet. Yay!</div>
           )}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </div>
   );
-};
-
-export default Protocol;
+  };
+  
+  export default Protocol;
+  

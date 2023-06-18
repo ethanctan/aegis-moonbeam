@@ -1,5 +1,4 @@
-import { React, useState } from 'react';
-import { Button, CircularProgress, TextField, Grid } from '@mui/material';
+import React, { useState } from 'react';
 import { utils } from 'ethers';
 
 const CreateDashboard = ({ consumerDashboardGen, signer }) => {
@@ -12,7 +11,7 @@ const CreateDashboard = ({ consumerDashboardGen, signer }) => {
       // Prepare your transaction with gas
       const tx = await consumerDashboardGen.connect(signer).createDashboard({
         gasLimit: utils.hexlify(250000),
-        });
+      });
 
       // Wait for the transaction to be confirmed
       await tx.wait();
@@ -26,16 +25,21 @@ const CreateDashboard = ({ consumerDashboardGen, signer }) => {
   };
 
   return (
-    <div>
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
+    <div className="flex justify-center items-center mt-4">
+      <button
+        className="bg-blue-500 text-white rounded px-4 py-2 h-12"
         disabled={isLoading}
         onClick={handleCreateDashboard}
       >
-        {isLoading ? <CircularProgress size={24} /> : 'Create Dashboard'}
-      </Button>
+        {isLoading ? (
+          <span className="flex items-center">
+            <div className="w-4 h-4 border-2 border-white rounded-full animate-spin mr-2"></div>
+            <span>Loading...</span>
+          </span>
+        ) : (
+          'Create Dashboard'
+        )}
+      </button>
     </div>
   );
 };

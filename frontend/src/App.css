@@ -6,6 +6,13 @@
   text-align: center;
 }
 
+/* App.css */
+body {
+  background-color: #121825;
+  color: white;
+}
+
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -17,15 +24,21 @@
   }
 }
 
+/* App.css */
+.box {
+  background-image: linear-gradient(to bottom right, #5dc4ed, #4927bc);
+}
+
+
 .App-header {
-  background-color: #282c34;
+  background-color: #1b3864;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #1b3864;
 }
 
 .App-link {

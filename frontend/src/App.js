@@ -22,24 +22,6 @@ import Juror from './components/Juror';
 import Protocol from './components/Protocol';
 import GetDashboardAddress from './components/GetDashboardAddress';
 
-
-const styles = {
-  box: { minHeight: '100vh', backgroundColor: '#1b3864' },
-  vh100: { minHeight: '100vh' },
-  card: { borderRadius: 4, padding: 4, maxWidth: '550px', width: '100%' },
-  alignCenter: { textAlign: 'center' },
-};
-
-// Contract addresses
-// const addresses = {
-//   owner: '0x8066221588691155A7594291273F417fa4de3CAe', // my address, remove if not needed
-//   consumerDashboardGen: '0x3CE44692496B80ceE36965EEf8ce08bFB8834f7D',
-//   protocolWalletGen: '0x5ef703f49fB6D646bF36131Bed6390E5514A875A',
-//   disputeResolutionCenter: '0x3D62277e091Ec688F8Ba1E4bc2a84fD7EeE47139',
-//   lottery: '0x3EC0549914d56e8b97859cb6FDBABc667809841A'
-// }
-
-// New addresses with public functions instead of external
 const addresses = {
   owner: '0x8066221588691155A7594291273F417fa4de3CAe', // my address, remove if not needed
   consumerDashboardGen: '0xf7670f2ba1aD7c86E4A073222BBb60890a663D79',
@@ -50,49 +32,31 @@ const addresses = {
 
 function App({ provider }) {
 
-  // for now we won't connect metamask, but hardcode my wallet instead.
-  // const signer = new Wallet('1f505417c00af3fb18d5d48afd892d8d318262e232d0fcba395a84ee7f71ee80', provider);
+  const [showJuror, setShowJuror] = useState(false);
+  const [showConsumer, setShowConsumer] = useState(false);
+  const [showProtocol, setShowProtocol] = useState(false);
+
   const signer = provider.getSigner();
 
-
-  // Contract objects
   const consumerDashboardGen = new Contract(addresses.consumerDashboardGen, ConsumerDashboardGen.abi, signer);
   const protocolWalletGen = new Contract(addresses.protocolWalletGen, ProtocolWalletGen.abi, signer);
   const disputeResolutionCenter = new Contract(addresses.disputeResolutionCenter, DisputeResolutionCenter.abi, signer);
   const lottery = new Contract(addresses.lottery, DisputeResolutionCenter.abi, signer);
 
-  // Connect metamask wallet
-  // const { activateBrowserWallet, deactivate, account } = useEthers();
-  // const handleWalletConnection = () => { // Handle the wallet toggle
-  //   if (account) deactivate();
-  //   else activateBrowserWallet();
-  // };
-
-  // Functions to interact with smart contracts
-  // Use the useContractFunction() in useDApp (as opposed to the Moonbeam tutorial which has useCall -> this is only for reading info (gasless))
-
-  // Selector variables: Conditionally render Consumer.js, Juror.js or Protocol.js based on which selector button is clicked
-  const [showJuror, setShowJuror] = useState(false);
-  const [showConsumer, setShowConsumer] = useState(false);
-  const [showProtocol, setShowProtocol] = useState(false);
-
-  // const { chainId, library, active } = useEthers();
-  // const etherBalance = useEtherBalance(account)
-  // const totalSupply = useCall({ consumerDashboardGen, method: 'totalSupply', args: [] });
-  // console.log(etherBalance)
-  
   return (
-    <Box sx={styles.box}>
+    <Box className="min-h-screen bg-gray-900 text-white">
+
+      {/* Header */}
+      <img src="https://uploads-ssl.webflow.com/647d37d4d622353242807240/647d9338720ca40f9f6e78a6_LogoJust.png" alt="Logo" className="h-24 mx-auto my-8" />
 
       {/* Connect wallet button */}
-
       <Grid
         container
         direction='column'
         alignItems='center'
         justifyContent='center'
       >
-        <Box position='absolute' top={8} right={16}>
+        <Box className="absolute top-8 right-16">
           {/* <Button variant='contained' onClick={handleConnectWallet}>
             {userAddress
               ? `Disconnect ${userAddress.substring(0, 5)}...`
@@ -101,22 +65,22 @@ function App({ provider }) {
         </Box>
       </Grid>
 
-      {/* Selector buttons: Are you a juror, consumer, or protocol? Only appears if user has not selected an option. */}
-      { !showJuror && !showConsumer && !showProtocol &&
+      {/* Selector buttons */}
+      {!showJuror && !showConsumer && !showProtocol &&
       <Grid
         container
         direction='column'
         alignItems='center'
         justifyContent='center'
       >
-        <Card sx={styles.card}>
+        <Card className="rounded-lg p-4 max-w-550px w-full box">
           <Grid
             container
             direction='column'
             alignItems='center'
             justifyContent='center'
           >
-            <h1 style={styles.alignCenter}>I am a...</h1>
+            <h1 className="text-center text-white pb-4">I am a...</h1>
             <Grid
               container
               direction='row'
@@ -125,21 +89,20 @@ function App({ provider }) {
               spacing={2}
             >
               <Grid item>
-                <Button variant='contained' className = "consumer" onClick={() => {setShowConsumer(true)}}>
+                <Button variant='contained' className="bg-sky-blue hover:bg-blue-400 text-black" onClick={() => { setShowConsumer(true) }}>
                   User
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant='contained' className = "protocol" onClick={() => {setShowProtocol(true)}}>
+                <Button variant='contained' className="bg-violet hover:bg-purple-400 text-black" onClick={() => { setShowProtocol(true) }}>
                   Protocol
                 </Button>
               </Grid>
               <Grid item>
-                <Button variant='contained' className = "juror" onClick={() => {setShowJuror(true)}}>
+                <Button variant='contained' className="bg-violet hover:bg-purple-400 text-black" onClick={() => { setShowJuror(true) }}>
                   Juror
                 </Button>
               </Grid>
-
             </Grid>
           </Grid>
         </Card>
@@ -147,50 +110,39 @@ function App({ provider }) {
       }
 
       {/* Conditional rendering of components */}
-      {showJuror && <Juror disputeResolutionCenter={disputeResolutionCenter} lottery={lottery} signer={signer} provider={provider}/>}
-      {showConsumer && 
-       <CreateDashboard consumerDashboardGen={consumerDashboardGen} signer={signer} />      
-      }
-      {showConsumer && 
-       <GetDashboardAddress consumerDashboardGen={consumerDashboardGen} signer={signer} />      
+      {showJuror && <Juror disputeResolutionCenter={disputeResolutionCenter} lottery={lottery} signer={signer} provider={provider} />}
+      {showConsumer &&
+        <>
+          <CreateDashboard consumerDashboardGen={consumerDashboardGen} signer={signer} />
+          <GetDashboardAddress consumerDashboardGen={consumerDashboardGen} signer={signer} />
+        </>
       }
       {showProtocol && <Protocol protocolWalletGen={protocolWalletGen} signer={signer} provider={provider} />}
 
       {/* Back button to go back to selection screen */}
-      {(showJuror || showConsumer || showProtocol) && 
-      <Grid
-        container
-        direction='column'
-        alignItems='center'
-        justifyContent='center'
-      >
-        <Card sx={styles.card}>
-          <Grid
-            container
-            direction='column'
-            alignItems='center'
-            justifyContent='center'
-          >
-            <Button variant='contained' onClick={() => {setShowJuror(false); setShowConsumer(false); setShowProtocol(false)}}>
-              Back
-            </Button>
-          </Grid>
-        </Card>
-      </Grid>
+      {(showJuror || showConsumer || showProtocol) &&
+        <Grid
+          container
+          direction='column'
+          alignItems='center'
+          justifyContent='center'
+        >
+          <Card className="rounded-lg p-4 box">
+            <Grid
+              container
+              direction='column'
+              alignItems='center'
+              justifyContent='center'
+            >
+              <Button variant='contained' onClick={() => { setShowJuror(false); setShowConsumer(false); setShowProtocol(false) }}>
+                Back
+              </Button>
+            </Grid>
+          </Card>
+        </Grid>
       }
-
-      {/* sandbox - delete later */}
-      {/* Test if tailwind css is working */}
-      <div className="bg-red-500 text-white">
-        <p>If my background is red and text is white, Tailwind is working</p>
-        {/* show metamask account */}
-        {/* <p>Connected: {account}</p> */}
-      </div>
-      {/* clear local storage */}
-      <button onClick={() => {localStorage.clear(); window.location.reload();}}>Clear local storage</button>
-
     </Box>
   );
-};
+}
 
 export default App;
