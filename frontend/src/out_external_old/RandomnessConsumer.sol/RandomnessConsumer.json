@@ -1,0 +1,730 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "have",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "want",
+          "type": "address"
+        }
+      ],
+      "name": "OnlyRandomnessPrecompileCanFulfill",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "requestId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "randomWords",
+          "type": "uint256[]"
+        }
+      ],
+      "name": "rawFulfillRandomWords",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "bytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "deployedBytecode": {
+    "object": "0x",
+    "sourceMap": "",
+    "linkReferences": {}
+  },
+  "methodIdentifiers": {
+    "rawFulfillRandomWords(uint256,uint256[])": "1fe543e3"
+  },
+  "rawMetadata": "{\"compiler\":{\"version\":\"0.8.20+commit.a1b79de6\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"have\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"want\",\"type\":\"address\"}],\"name\":\"OnlyRandomnessPrecompileCanFulfill\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"requestId\",\"type\":\"uint256\"},{\"internalType\":\"uint256[]\",\"name\":\"randomWords\",\"type\":\"uint256[]\"}],\"name\":\"rawFulfillRandomWords\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"details\":\"PURPOSEThe purpose of this contract is to make it easy for contracts to talk tothe Randomness Precompile. It ensures 2 things:1. The fulfillment came from the Randomness Precompile2. The consumer contract implements fulfillRandomWords. *****************************************************************************USAGECalling contracts must inherit from RandomnessConsumerCall one of the randomness request functions:1. requestLocalVRFRandomWords(refundAddress, fee, gasLimit, saltnumWords, delay),2. requestRelayBabeEpochRandomWords(refundAddress, fee, gasLimit, saltnumWords),see (Randomness.sol for a description of each function and their arguments).Once the request has been registered and the minimum delay is passed, therequest then can be executed (for 0 fee) by anyone. it will call yourcontract's fulfillRandomWords method.The randomness argument to fulfillRandomWords is a set of random wordsgenerated from your requestId.If your contract could have concurrent requests open, you can use therequestId returned from requestRandomWords to track which response is associatedwith which randomness request.See \\\"SECURITY CONSIDERATIONS\\\" for principles to keep in mind,if your contract could have multiple requests in flight simultaneously.Colliding `requestId`s are cryptographically impossible as long as seedsdiffer. *****************************************************************************SECURITY CONSIDERATIONSA method with the ability to call your fulfillRandomness method directlycould spoof a VRF response with any random value, so it's critical thatit cannot be directly called by anything other than this base contract(specifically, by the RandomnessConsumer.rawFulfillRandomness method).For your users to trust that your contract's random behavior is freefrom malicious interference, it's best if you can write it so that allbehaviors implied by a VRF response are executed *during* yourfulfillRandomness method. If your contract must store the response (oranything derived from it) and use it later, you must ensure that anyuser-significant behavior which depends on that stored value cannot bemanipulated by a subsequent VRF request.Similarly, the collators have some influence over the order in whichVRF responses appear on the blockchain, so if your contract could havemultiple VRF requests in flight simultaneously, you must ensure thatthe order in which the VRF responses arrive cannot be used to manipulateyour contract's user-significant behavior.Since the output of the random words generated for*requestLocalVRFRandomWords* is dependant of the collator producing theblock at fulfillment, the collator could skip its block forcing thefulfillment to be executed by a different collator, and thereforegenerating a different VRF.However, such an attack would incur the cost of losing the block reward tothe collator.It is also possible for a collator to be able to predict some of thepossible outcome of the VRF if the delay between the request and thefulfillment is too short. It is for this reason that we allow to providea higher delaySince the output of the random words generated for*requestRelayBabeEpochRandomWords* is dependant of the relaychainvalidator producing the blocks during an epoch, it is possible forthe last validator of an epoch to choose between 2 possible VRFoutputs by skipping the production of a block.However, such an attack would incur the cost of losing the block reward tothe validatorIt is not possible for a parachain collator to predict nor influencethe output of the relaychain VRF, not to censor the fulfillment as long asthere is one honest collator.\",\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"****************************************************************************Interface for contracts using VRF randomness *****************************************************************************\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/RandomnessConsumer.sol\":\"RandomnessConsumer\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":ds-test/=lib/forge-std/lib/ds-test/src/\",\":forge-std/=lib/forge-std/src/\"]},\"sources\":{\"src/RandomnessConsumer.sol\":{\"keccak256\":\"0x832fdc265390c178eb908d4e56dad60f3f3a325c463205bf242b852f8453cf00\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://be937dd4102a49beff2e3a44039b1d83cad940165098e17198918d0bc6f0ac79\",\"dweb:/ipfs/Qmdqc6E4zTjTkCxcHGxwd3oupKecaqHMZ6infv8AVpGboY\"]}},\"version\":1}",
+  "metadata": {
+    "compiler": {
+      "version": "0.8.20+commit.a1b79de6"
+    },
+    "language": "Solidity",
+    "output": {
+      "abi": [
+        {
+          "inputs": [
+            {
+              "internalType": "address",
+              "name": "have",
+              "type": "address"
+            },
+            {
+              "internalType": "address",
+              "name": "want",
+              "type": "address"
+            }
+          ],
+          "type": "error",
+          "name": "OnlyRandomnessPrecompileCanFulfill"
+        },
+        {
+          "inputs": [
+            {
+              "internalType": "uint256",
+              "name": "requestId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256[]",
+              "name": "randomWords",
+              "type": "uint256[]"
+            }
+          ],
+          "stateMutability": "nonpayable",
+          "type": "function",
+          "name": "rawFulfillRandomWords"
+        }
+      ],
+      "devdoc": {
+        "kind": "dev",
+        "methods": {},
+        "version": 1
+      },
+      "userdoc": {
+        "kind": "user",
+        "methods": {},
+        "version": 1
+      }
+    },
+    "settings": {
+      "remappings": [
+        ":ds-test/=lib/forge-std/lib/ds-test/src/",
+        ":forge-std/=lib/forge-std/src/"
+      ],
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "metadata": {
+        "bytecodeHash": "ipfs"
+      },
+      "compilationTarget": {
+        "src/RandomnessConsumer.sol": "RandomnessConsumer"
+      },
+      "libraries": {}
+    },
+    "sources": {
+      "src/RandomnessConsumer.sol": {
+        "keccak256": "0x832fdc265390c178eb908d4e56dad60f3f3a325c463205bf242b852f8453cf00",
+        "urls": [
+          "bzz-raw://be937dd4102a49beff2e3a44039b1d83cad940165098e17198918d0bc6f0ac79",
+          "dweb:/ipfs/Qmdqc6E4zTjTkCxcHGxwd3oupKecaqHMZ6infv8AVpGboY"
+        ],
+        "license": "GPL-3.0"
+      }
+    },
+    "version": 1
+  },
+  "ast": {
+    "absolutePath": "src/RandomnessConsumer.sol",
+    "id": 2311,
+    "exportedSymbols": {
+      "RANDOMNESS_ADDRESS": [
+        2267
+      ],
+      "RandomnessConsumer": [
+        2310
+      ]
+    },
+    "nodeType": "SourceUnit",
+    "src": "195:6174:8",
+    "nodes": [
+      {
+        "id": 2263,
+        "nodeType": "PragmaDirective",
+        "src": "195:24:8",
+        "nodes": [],
+        "literals": [
+          "solidity",
+          ">=",
+          "0.8",
+          ".3"
+        ]
+      },
+      {
+        "id": 2267,
+        "nodeType": "VariableDeclaration",
+        "src": "265:80:8",
+        "nodes": [],
+        "constant": true,
+        "mutability": "constant",
+        "name": "RANDOMNESS_ADDRESS",
+        "nameLocation": "282:18:8",
+        "scope": 2311,
+        "stateVariable": false,
+        "storageLocation": "default",
+        "typeDescriptions": {
+          "typeIdentifier": "t_address",
+          "typeString": "address"
+        },
+        "typeName": {
+          "id": 2265,
+          "name": "address",
+          "nodeType": "ElementaryTypeName",
+          "src": "265:7:8",
+          "stateMutability": "nonpayable",
+          "typeDescriptions": {
+            "typeIdentifier": "t_address",
+            "typeString": "address"
+          }
+        },
+        "value": {
+          "hexValue": "307830303030303030303030303030303030303030303030303030303030303030303030303030383039",
+          "id": 2266,
+          "isConstant": false,
+          "isLValue": false,
+          "isPure": true,
+          "kind": "number",
+          "lValueRequested": false,
+          "nodeType": "Literal",
+          "src": "303:42:8",
+          "typeDescriptions": {
+            "typeIdentifier": "t_address",
+            "typeString": "address"
+          },
+          "value": "0x0000000000000000000000000000000000000809"
+        },
+        "visibility": "internal"
+      },
+      {
+        "id": 2310,
+        "nodeType": "ContractDefinition",
+        "src": "4794:1574:8",
+        "nodes": [
+          {
+            "id": 2274,
+            "nodeType": "ErrorDefinition",
+            "src": "4837:69:8",
+            "nodes": [],
+            "errorSelector": "c68806f5",
+            "name": "OnlyRandomnessPrecompileCanFulfill",
+            "nameLocation": "4843:34:8",
+            "parameters": {
+              "id": 2273,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2270,
+                  "mutability": "mutable",
+                  "name": "have",
+                  "nameLocation": "4886:4:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2274,
+                  "src": "4878:12:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2269,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4878:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2272,
+                  "mutability": "mutable",
+                  "name": "want",
+                  "nameLocation": "4900:4:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2274,
+                  "src": "4892:12:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 2271,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "4892:7:8",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "4877:28:8"
+            }
+          },
+          {
+            "id": 2283,
+            "nodeType": "FunctionDefinition",
+            "src": "5675:116:8",
+            "nodes": [],
+            "documentation": {
+              "id": 2275,
+              "nodeType": "StructuredDocumentation",
+              "src": "4912:758:8",
+              "text": " @notice fulfillRandomness handles the VRF response. Your contract must\n @notice implement it. See \"SECURITY CONSIDERATIONS\" above for important\n @notice principles to keep in mind when implementing your fulfillRandomness\n @notice method.\n @dev RandomnessConsumer expects its subcontracts to have a method with this\n @dev signature, and will call it once it has verified the proof\n @dev associated with the randomness. (It is triggered via a call to\n @dev rawFulfillRandomness, below.)\n @param requestId The Id initially returned by requestLocalVRFRandomWords or requestRelayBabeEpochRandomWords\n @param randomWords The VRF output expanded to the requested number of words"
+            },
+            "implemented": false,
+            "kind": "function",
+            "modifiers": [],
+            "name": "fulfillRandomWords",
+            "nameLocation": "5684:18:8",
+            "parameters": {
+              "id": 2281,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2277,
+                  "mutability": "mutable",
+                  "name": "requestId",
+                  "nameLocation": "5720:9:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2283,
+                  "src": "5712:17:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2276,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "5712:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2280,
+                  "mutability": "mutable",
+                  "name": "randomWords",
+                  "nameLocation": "5756:11:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2283,
+                  "src": "5739:28:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 2278,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "5739:7:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 2279,
+                    "nodeType": "ArrayTypeName",
+                    "src": "5739:9:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "5702:71:8"
+            },
+            "returnParameters": {
+              "id": 2282,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "5790:0:8"
+            },
+            "scope": 2310,
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "internal"
+          },
+          {
+            "id": 2309,
+            "nodeType": "FunctionDefinition",
+            "src": "6005:361:8",
+            "nodes": [],
+            "body": {
+              "id": 2308,
+              "nodeType": "Block",
+              "src": "6116:250:8",
+              "nodes": [],
+              "statements": [
+                {
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    },
+                    "id": 2294,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "expression": {
+                        "id": 2291,
+                        "name": "msg",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": -15,
+                        "src": "6130:3:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_magic_message",
+                          "typeString": "msg"
+                        }
+                      },
+                      "id": 2292,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "6134:6:8",
+                      "memberName": "sender",
+                      "nodeType": "MemberAccess",
+                      "src": "6130:10:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "!=",
+                    "rightExpression": {
+                      "id": 2293,
+                      "name": "RANDOMNESS_ADDRESS",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2267,
+                      "src": "6144:18:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "6130:32:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 2302,
+                  "nodeType": "IfStatement",
+                  "src": "6126:182:8",
+                  "trueBody": {
+                    "id": 2301,
+                    "nodeType": "Block",
+                    "src": "6164:144:8",
+                    "statements": [
+                      {
+                        "errorCall": {
+                          "arguments": [
+                            {
+                              "expression": {
+                                "id": 2296,
+                                "name": "msg",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": -15,
+                                "src": "6237:3:8",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_magic_message",
+                                  "typeString": "msg"
+                                }
+                              },
+                              "id": 2297,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "memberLocation": "6241:6:8",
+                              "memberName": "sender",
+                              "nodeType": "MemberAccess",
+                              "src": "6237:10:8",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            {
+                              "id": 2298,
+                              "name": "RANDOMNESS_ADDRESS",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 2267,
+                              "src": "6265:18:8",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              },
+                              {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            ],
+                            "id": 2295,
+                            "name": "OnlyRandomnessPrecompileCanFulfill",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 2274,
+                            "src": "6185:34:8",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_error_pure$_t_address_$_t_address_$returns$__$",
+                              "typeString": "function (address,address) pure"
+                            }
+                          },
+                          "id": 2299,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "6185:112:8",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 2300,
+                        "nodeType": "RevertStatement",
+                        "src": "6178:119:8"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 2304,
+                        "name": "requestId",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2285,
+                        "src": "6336:9:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 2305,
+                        "name": "randomWords",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 2288,
+                        "src": "6347:11:8",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                          "typeString": "uint256[] memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                          "typeString": "uint256[] memory"
+                        }
+                      ],
+                      "id": 2303,
+                      "name": "fulfillRandomWords",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 2283,
+                      "src": "6317:18:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_internal_nonpayable$_t_uint256_$_t_array$_t_uint256_$dyn_memory_ptr_$returns$__$",
+                        "typeString": "function (uint256,uint256[] memory)"
+                      }
+                    },
+                    "id": 2306,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "6317:42:8",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 2307,
+                  "nodeType": "ExpressionStatement",
+                  "src": "6317:42:8"
+                }
+              ]
+            },
+            "functionSelector": "1fe543e3",
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "rawFulfillRandomWords",
+            "nameLocation": "6014:21:8",
+            "parameters": {
+              "id": 2289,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 2285,
+                  "mutability": "mutable",
+                  "name": "requestId",
+                  "nameLocation": "6053:9:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2309,
+                  "src": "6045:17:8",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 2284,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "6045:7:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 2288,
+                  "mutability": "mutable",
+                  "name": "randomWords",
+                  "nameLocation": "6089:11:8",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 2309,
+                  "src": "6072:28:8",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                    "typeString": "uint256[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 2286,
+                      "name": "uint256",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "6072:7:8",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 2287,
+                    "nodeType": "ArrayTypeName",
+                    "src": "6072:9:8",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                      "typeString": "uint256[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "6035:71:8"
+            },
+            "returnParameters": {
+              "id": 2290,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "6116:0:8"
+            },
+            "scope": 2310,
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "external"
+          }
+        ],
+        "abstract": true,
+        "baseContracts": [],
+        "canonicalName": "RandomnessConsumer",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 2268,
+          "nodeType": "StructuredDocumentation",
+          "src": "348:4445:8",
+          "text": "****************************************************************************\n @notice Interface for contracts using VRF randomness\n *****************************************************************************\n @dev PURPOSE\n @dev The purpose of this contract is to make it easy for contracts to talk to\n @dev the Randomness Precompile. It ensures 2 things:\n @dev 1. The fulfillment came from the Randomness Precompile\n @dev 2. The consumer contract implements fulfillRandomWords.\n *****************************************************************************\n @dev USAGE\n @dev Calling contracts must inherit from RandomnessConsumer\n @dev Call one of the randomness request functions:\n @dev 1. requestLocalVRFRandomWords(refundAddress, fee, gasLimit, salt\n @dev numWords, delay),\n @dev 2. requestRelayBabeEpochRandomWords(refundAddress, fee, gasLimit, salt\n @dev numWords),\n @dev see (Randomness.sol for a description of each function and their arguments).\n @dev Once the request has been registered and the minimum delay is passed, the\n @dev request then can be executed (for 0 fee) by anyone. it will call your\n @dev contract's fulfillRandomWords method.\n @dev The randomness argument to fulfillRandomWords is a set of random words\n @dev generated from your requestId.\n @dev If your contract could have concurrent requests open, you can use the\n @dev requestId returned from requestRandomWords to track which response is associated\n @dev with which randomness request.\n @dev See \"SECURITY CONSIDERATIONS\" for principles to keep in mind,\n @dev if your contract could have multiple requests in flight simultaneously.\n @dev Colliding `requestId`s are cryptographically impossible as long as seeds\n @dev differ.\n *****************************************************************************\n @dev SECURITY CONSIDERATIONS\n @dev A method with the ability to call your fulfillRandomness method directly\n @dev could spoof a VRF response with any random value, so it's critical that\n @dev it cannot be directly called by anything other than this base contract\n @dev (specifically, by the RandomnessConsumer.rawFulfillRandomness method).\n @dev For your users to trust that your contract's random behavior is free\n @dev from malicious interference, it's best if you can write it so that all\n @dev behaviors implied by a VRF response are executed *during* your\n @dev fulfillRandomness method. If your contract must store the response (or\n @dev anything derived from it) and use it later, you must ensure that any\n @dev user-significant behavior which depends on that stored value cannot be\n @dev manipulated by a subsequent VRF request.\n @dev Similarly, the collators have some influence over the order in which\n @dev VRF responses appear on the blockchain, so if your contract could have\n @dev multiple VRF requests in flight simultaneously, you must ensure that\n @dev the order in which the VRF responses arrive cannot be used to manipulate\n @dev your contract's user-significant behavior.\n @dev Since the output of the random words generated for\n @dev *requestLocalVRFRandomWords* is dependant of the collator producing the\n @dev block at fulfillment, the collator could skip its block forcing the\n @dev fulfillment to be executed by a different collator, and therefore\n @dev generating a different VRF.\n @dev However, such an attack would incur the cost of losing the block reward to\n @dev the collator.\n @dev It is also possible for a collator to be able to predict some of the\n @dev possible outcome of the VRF if the delay between the request and the\n @dev fulfillment is too short. It is for this reason that we allow to provide\n @dev a higher delay\n @dev Since the output of the random words generated for\n @dev *requestRelayBabeEpochRandomWords* is dependant of the relaychain\n @dev validator producing the blocks during an epoch, it is possible for\n @dev the last validator of an epoch to choose between 2 possible VRF\n @dev outputs by skipping the production of a block.\n @dev However, such an attack would incur the cost of losing the block reward to\n @dev the validator\n @dev It is not possible for a parachain collator to predict nor influence\n @dev the output of the relaychain VRF, not to censor the fulfillment as long as\n @dev there is one honest collator."
+        },
+        "fullyImplemented": false,
+        "linearizedBaseContracts": [
+          2310
+        ],
+        "name": "RandomnessConsumer",
+        "nameLocation": "4812:18:8",
+        "scope": 2311,
+        "usedErrors": [
+          2274
+        ],
+        "usedEvents": []
+      }
+    ],
+    "license": "GPL-3.0"
+  },
+  "id": 8
+}

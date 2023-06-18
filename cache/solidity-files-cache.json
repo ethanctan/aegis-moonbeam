@@ -1,0 +1,435 @@
+{
+  "_format": "ethers-rs-sol-cache-3",
+  "paths": {
+    "artifacts": "out",
+    "build_infos": "out/build-info",
+    "sources": "src",
+    "tests": "test",
+    "scripts": "script",
+    "libraries": [
+      "lib"
+    ]
+  },
+  "files": {
+    "src/ConsumerDashboard.sol": {
+      "lastModificationDate": 1687079322658,
+      "contentHash": "6dbfd0d2108e6e40f10f4da0d4e0398b",
+      "sourceName": "src/ConsumerDashboard.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/ConsumerDashboard.sol",
+        "src/ConsumerDashboardGen.sol",
+        "src/DisputeResolutionCenter.sol",
+        "src/JurorWallet.sol",
+        "src/Lottery.sol",
+        "src/ProtocolWallet.sol",
+        "src/ProtocolWalletGen.sol",
+        "src/Randomness.sol",
+        "src/RandomnessConsumer.sol"
+      ],
+      "versionRequirement": "^0.8.18",
+      "artifacts": {
+        "ConsumerDashboard": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "ConsumerDashboard.sol/ConsumerDashboard.json"
+        }
+      }
+    },
+    "src/ConsumerDashboardGen.sol": {
+      "lastModificationDate": 1687079283276,
+      "contentHash": "9dbd252ff20d3df76aeb9b19a5064e4c",
+      "sourceName": "src/ConsumerDashboardGen.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/ConsumerDashboard.sol",
+        "src/ConsumerDashboardGen.sol",
+        "src/DisputeResolutionCenter.sol",
+        "src/JurorWallet.sol",
+        "src/Lottery.sol",
+        "src/ProtocolWallet.sol",
+        "src/ProtocolWalletGen.sol",
+        "src/Randomness.sol",
+        "src/RandomnessConsumer.sol"
+      ],
+      "versionRequirement": "^0.8.18",
+      "artifacts": {
+        "ConsumerDashboardGen": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "ConsumerDashboardGen.sol/ConsumerDashboardGen.json"
+        }
+      }
+    },
+    "src/DisputeResolutionCenter.sol": {
+      "lastModificationDate": 1687079286451,
+      "contentHash": "92b0249808ded79dd52393da505f1eff",
+      "sourceName": "src/DisputeResolutionCenter.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/ConsumerDashboard.sol",
+        "src/ConsumerDashboardGen.sol",
+        "src/DisputeResolutionCenter.sol",
+        "src/JurorWallet.sol",
+        "src/Lottery.sol",
+        "src/ProtocolWallet.sol",
+        "src/ProtocolWalletGen.sol",
+        "src/Randomness.sol",
+        "src/RandomnessConsumer.sol"
+      ],
+      "versionRequirement": "^0.8.18",
+      "artifacts": {
+        "DisputeResolutionCenter": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "DisputeResolutionCenter.sol/DisputeResolutionCenter.json"
+        }
+      }
+    },
+    "src/JurorWallet.sol": {
+      "lastModificationDate": 1687079308079,
+      "contentHash": "bb005d7e974446c0cc0116fa19ad9389",
+      "sourceName": "src/JurorWallet.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/ConsumerDashboard.sol",
+        "src/ConsumerDashboardGen.sol",
+        "src/DisputeResolutionCenter.sol",
+        "src/JurorWallet.sol",
+        "src/Lottery.sol",
+        "src/ProtocolWallet.sol",
+        "src/ProtocolWalletGen.sol",
+        "src/Randomness.sol",
+        "src/RandomnessConsumer.sol"
+      ],
+      "versionRequirement": "^0.8.18",
+      "artifacts": {
+        "JurorWallet": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "JurorWallet.sol/JurorWallet.json"
+        }
+      }
+    },
+    "src/Lottery.sol": {
+      "lastModificationDate": 1687079318890,
+      "contentHash": "3f8de9c3fbe9bcefcc076cc7424da4ca",
+      "sourceName": "src/Lottery.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/ConsumerDashboard.sol",
+        "src/ConsumerDashboardGen.sol",
+        "src/DisputeResolutionCenter.sol",
+        "src/JurorWallet.sol",
+        "src/Lottery.sol",
+        "src/ProtocolWallet.sol",
+        "src/ProtocolWalletGen.sol",
+        "src/Randomness.sol",
+        "src/RandomnessConsumer.sol"
+      ],
+      "versionRequirement": ">=0.8.0",
+      "artifacts": {
+        "Lottery": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "Lottery.sol/Lottery.json"
+        }
+      }
+    },
+    "src/ProtocolWallet.sol": {
+      "lastModificationDate": 1687079344904,
+      "contentHash": "63a2b90794397166351f4d3e461771b1",
+      "sourceName": "src/ProtocolWallet.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "^0.8.18",
+      "artifacts": {
+        "ProtocolWallet": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "ProtocolWallet.sol/ProtocolWallet.json"
+        }
+      }
+    },
+    "src/ProtocolWalletGen.sol": {
+      "lastModificationDate": 1687079357714,
+      "contentHash": "4c4ec0fcdfa8525765617251ef6eb2b7",
+      "sourceName": "src/ProtocolWalletGen.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/ConsumerDashboard.sol",
+        "src/ConsumerDashboardGen.sol",
+        "src/DisputeResolutionCenter.sol",
+        "src/JurorWallet.sol",
+        "src/Lottery.sol",
+        "src/ProtocolWallet.sol",
+        "src/ProtocolWalletGen.sol",
+        "src/Randomness.sol",
+        "src/RandomnessConsumer.sol"
+      ],
+      "versionRequirement": "^0.8.18",
+      "artifacts": {
+        "ProtocolWalletGen": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "ProtocolWalletGen.sol/ProtocolWalletGen.json"
+        }
+      }
+    },
+    "src/Randomness.sol": {
+      "lastModificationDate": 1686991851782,
+      "contentHash": "b43bd812856d045c23af68e08187658b",
+      "sourceName": "src/Randomness.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": ">=0.8.3",
+      "artifacts": {
+        "Randomness": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "Randomness.sol/Randomness.json"
+        }
+      }
+    },
+    "src/RandomnessConsumer.sol": {
+      "lastModificationDate": 1686992085960,
+      "contentHash": "44b04cf668d82c9fe40d0f3a67efdf8a",
+      "sourceName": "src/RandomnessConsumer.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "metadata": {
+            "bytecodeHash": "ipfs",
+            "appendCBOR": true
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": ">=0.8.3",
+      "artifacts": {
+        "RandomnessConsumer": {
+          "0.8.20+commit.a1b79de6.Darwin.appleclang": "RandomnessConsumer.sol/RandomnessConsumer.json"
+        }
+      }
+    }
+  }
+}
