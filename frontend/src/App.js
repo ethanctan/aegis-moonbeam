@@ -22,6 +22,8 @@ import Juror from './components/Juror';
 import Protocol from './components/Protocol';
 import GetDashboardAddress from './components/GetDashboardAddress';
 
+import detectEthereumProvider from '@metamask/detect-provider';
+
 const addresses = {
   owner: '0x8066221588691155A7594291273F417fa4de3CAe', // my address, remove if not needed
   consumerDashboardGen: '0xf7670f2ba1aD7c86E4A073222BBb60890a663D79',
@@ -43,8 +45,41 @@ function App({ provider }) {
   const disputeResolutionCenter = new Contract(addresses.disputeResolutionCenter, DisputeResolutionCenter.abi, signer);
   const lottery = new Contract(addresses.lottery, DisputeResolutionCenter.abi, signer);
 
+  
+  const configureMoonbaseAlpha = async () => {
+    const provider = await detectEthereumProvider({ mustBeMetaMask: true });
+    if (provider) {
+        try {
+            await provider.request({ method: "eth_requestAccounts"});
+            await provider.request({
+                method: "wallet_addEthereumChain",
+                params: [
+                    {
+                        chainId: "0x507", // Moonbase Alpha's chainId is 1287, which is 0x507 in hex
+                        chainName: "Moonbase Alpha",
+                        nativeCurrency: {
+                            name: 'DEV',
+                            symbol: 'DEV',
+                            decimals: 18
+                        },
+                    rpcUrls: ["https://rpc.api.moonbase.moonbeam.network"],
+                    blockExplorerUrls: ["https://moonbase.moonscan.io/"]
+                    },
+                ]
+            })
+        } catch(e) {
+            console.error(e);
+        }  
+    } else {
+        console.error("Please install MetaMask");
+    }
+}
+
+
   return (
     <Box className="min-h-screen bg-gray-900 text-white">
+
+    <button onClick={configureMoonbaseAlpha}>Connect to Moonbase Alpha</button>
 
     {/* Gradient Text */}
       <div className="text-center py-8">
