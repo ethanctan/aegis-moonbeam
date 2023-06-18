@@ -59,6 +59,7 @@ function App({ provider }) {
   const consumerDashboardGen = new Contract(addresses.consumerDashboardGen, ConsumerDashboardGen.abi, signer);
   const protocolWalletGen = new Contract(addresses.protocolWalletGen, ProtocolWalletGen.abi, signer);
   const disputeResolutionCenter = new Contract(addresses.disputeResolutionCenter, DisputeResolutionCenter.abi, signer);
+  const lottery = new Contract(addresses.lottery, DisputeResolutionCenter.abi, signer);
 
   // Connect metamask wallet
   // const { activateBrowserWallet, deactivate, account } = useEthers();
@@ -146,14 +147,14 @@ function App({ provider }) {
       }
 
       {/* Conditional rendering of components */}
-      {showJuror && <Juror />}
+      {showJuror && <Juror disputeResolutionCenter={disputeResolutionCenter} lottery={lottery} signer={signer} provider={provider}/>}
       {showConsumer && 
        <CreateDashboard consumerDashboardGen={consumerDashboardGen} signer={signer} />      
       }
       {showConsumer && 
        <GetDashboardAddress consumerDashboardGen={consumerDashboardGen} signer={signer} />      
       }
-      {showProtocol && <Protocol protocolWalletGen={protocolWalletGen} signer={signer} />}
+      {showProtocol && <Protocol protocolWalletGen={protocolWalletGen} signer={signer} provider={provider} />}
 
       {/* Back button to go back to selection screen */}
       {(showJuror || showConsumer || showProtocol) && 
