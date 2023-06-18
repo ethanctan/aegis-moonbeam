@@ -28,7 +28,8 @@ const addresses = {
   owner: '0x8066221588691155A7594291273F417fa4de3CAe', // my address, remove if not needed
   consumerDashboardGen: '0xf7670f2ba1aD7c86E4A073222BBb60890a663D79',
   protocolWalletGen: '0xe032154b66c31B3aFC224F4280CD9a5BC6C888c0',
-  disputeResolutionCenter: '0xf89F7995BDe8350978eB1df7C7C58BC56Cd8eD14',
+  disputeResolutionCenter: '0xCB4087fF1af699456050E19F6bB9c8049A6D1f37',
+  disputeResolutionCenterOld: '0xf89F7995BDe8350978eB1df7C7C58BC56Cd8eD14',
   lottery: '0xD2A10434c44121F26385b1Cd944Ddc96B037Df63'
 }
 
@@ -78,14 +79,15 @@ function App({ provider }) {
 
   return (
     <Box className="min-h-screen bg-gray-900 text-white">
-
-    <button onClick={configureMoonbaseAlpha}>Connect to Moonbase Alpha</button>
-
     {/* Gradient Text */}
       <div className="text-center py-8">
       <h2 className="font-bold text-4xl text-gradient">
         Aegis Protocol
       </h2>
+      <br />
+      <Button variant='contained' className="bg-sky-blue hover:bg-blue-400 text-black" onClick={configureMoonbaseAlpha}>
+                  Connect to Moonbase Alpha
+      </Button>
     </div>
 
       {/* Header */}
@@ -189,3 +191,4 @@ function App({ provider }) {
 }
 
 export default App;
+

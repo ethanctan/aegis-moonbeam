@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import ConsumerDashboardJson from './../out/ConsumerDashboard.sol/ConsumerDashboard.json';
+import { Button, TextField, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
 const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
   const [dashboardAddress, setDashboardAddress] = useState(null);
@@ -127,17 +128,13 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
     setRefreshDisputes(true);
     setRefreshProtocols(true);
   };
-
   return (
     <div className="w-2/3 mx-auto">
       {dashboardAddress ? (
         <div>
           <div className="mt-5">Dashboard Address: {dashboardAddress}</div>
   
-          <form onSubmit={handleSubmitTransaction} className="mt-4">
-            {/* form inputs */}
-          </form>
-  
+
           <h1 className="text-2xl mt-4">My Transactions</h1>
           <div className="overflow-x-auto">
             <table className="w-full mt-2 bg-blue-900">
@@ -146,49 +143,142 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
                   <th className="px-4 py-2">From Address (Transaction)</th>
                   <th className="px-4 py-2">To Address (Transaction)</th>
                   <th className="px-4 py-2">Transaction Hash</th>
-                  <th className="px-4 py-2">Block</th>
                 </tr>
               </thead>
               <tbody>
                 {transactions.map((transaction, index) => (
                   <tr key={index}>
-                    <td className="px-4 py-2">{transaction[0]}</td>
-                    <td className="px-4 py-2">{transaction[1]}</td>
-                    <td className="px-4 py-2">{transaction[2]}</td>
-                    <td className="px-4 py-2">{transaction[3].toNumber()}</td>
+                    <td className="px-4 py-2">{`${transaction[0].substring(0, 4)}...${transaction[0].substring(transaction[0].length - 4)}`} </td>
+                    <td className="px-4 py-2">{`${transaction[1].substring(0, 4)}...${transaction[1].substring(transaction[1].length - 4)}`} </td>
+                    <td className="px-4 py-2">{`${transaction[2].substring(0, 4)}...${transaction[2].substring(transaction[2].length - 4)}`} </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
   
-          <form onSubmit={handleSubmitDispute} className="mt-4">
-            {/* form inputs */}
+
+
+          <form onSubmit={handleSubmitTransaction} className="mt-4">
+            <div className="mb-4">
+              <label className="block mb-2">
+                From Address (Transaction):
+                <input
+                  type="text"
+                  value={fromAddress}
+                  onChange={(e) => setFromAddress(e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-2 py-1 w-full text-black"
+                />
+              </label>
+              <label className="block mb-2">
+                To Address (Transaction):
+                <input
+                  type="text"
+                  value={toAddress}
+                  onChange={(e) => setToAddress(e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-2 py-1 w-full text-black"
+                />
+              </label>
+              <label className="block mb-2">
+                Transaction Hash:
+                <input
+                  type="text"
+                  value={txHash}
+                  onChange={(e) => setTxHash(e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-2 py-1 w-full text-black"
+                />
+              </label>
+              <label className="block mb-2">
+                Block:
+                <input
+                  type="number"
+                  value={block}
+                  onChange={(e) => setBlock(e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-2 py-1 w-full text-black"
+                />
+              </label>
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white rounded px-4 py-2"
+            >
+              Add Transaction
+            </button>
           </form>
-  
+        
           <h1 className="text-2xl mt-4">My Disputes</h1>
           <div className="overflow-x-auto">
             <table className="w-full mt-2 bg-blue-900">
               <thead>
                 <tr>
-                  <th className="px-4 py-2">To Address (Dispute)</th>
-                  <th className="px-4 py-2">Output</th>
+                  <th className="px-4 py-2">From Address</th>
+                  <th className="px-4 py-2">To Address</th>
                   <th className="px-4 py-2">Amount</th>
+                  <th className="px-4 py-2">Description</th>
+                  <th className="px-4 py-2">Decision</th>
                 </tr>
               </thead>
               <tbody>
                 {disputes.map((dispute, index) => (
                   <tr key={index}>
-                    <td className="px-4 py-2">{dispute[0]}</td>
-                    <td className="px-4 py-2">{dispute[1]}</td>
+                    <td className="px-4 py-2">{`${dispute[0].substring(0, 4)}...${dispute[0].substring(dispute[0].length - 4)}`} </td>
+                    <td className="px-4 py-2">{`${dispute[1].substring(0, 4)}...${dispute[1].substring(dispute[1].length - 4)}`}</td>
                     <td className="px-4 py-2">{dispute[2].toNumber()}</td>
+                    <td className="px-4 py-2">{dispute[3]}</td>
+                    <td className="px-4 py-2">{dispute[5].undecided ? 'Undecided' : dispute[5].win ? 'Win' : 'Lose'}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          <form onSubmit={handleSubmitDispute} className="mt-4">
+            <div className="mb-4">
+              <label className="block mb-2">
+                To Address (Dispute):
+                <input
+                  type="text"
+                  value={toAddress}
+                  onChange={(e) => setToAddress(e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-2 py-1 w-full text-black"
+                />
+              </label>
+              <label className="block mb-2">
+                Output:
+                <input
+                  type="text"
+                  value={output}
+                  onChange={(e) => setOutput(e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-2 py-1 w-full text-black"
+                />
+              </label>
+              <label className="block mb-2">
+                Amount:
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  required
+                  className="border border-gray-300 rounded px-2 py-1 w-full text-black"
+                />
+              </label>
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white rounded px-4 py-2"
+            >
+              File Dispute
+            </button>
+          </form>
   
-          <h1 className="text-2xl mt-4">My Protocols</h1>
+  
+          <h1 className="text-2xl mt-4">Protocols with Chargeback Pools</h1>
           <div className="overflow-x-auto">
             <table className="w-full mt-2 bg-blue-900">
               <thead>

@@ -12,8 +12,8 @@
   },
   "files": {
     "src/ConsumerDashboard.sol": {
-      "lastModificationDate": 1687079322658,
-      "contentHash": "6dbfd0d2108e6e40f10f4da0d4e0398b",
+      "lastModificationDate": 1687094516132,
+      "contentHash": "399649a1ec0ed17a88d06b0eb2056de0",
       "sourceName": "src/ConsumerDashboard.sol",
       "solcConfig": {
         "settings": {
@@ -112,8 +112,8 @@
       }
     },
     "src/DisputeResolutionCenter.sol": {
-      "lastModificationDate": 1687079286451,
-      "contentHash": "92b0249808ded79dd52393da505f1eff",
+      "lastModificationDate": 1687109340495,
+      "contentHash": "fce4d96dffd318d3d009e0dcc30f7bfa",
       "sourceName": "src/DisputeResolutionCenter.sol",
       "solcConfig": {
         "settings": {

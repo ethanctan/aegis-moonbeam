@@ -180,7 +180,7 @@ const Protocol = ({ protocolWalletGen, signer, provider }) => {
         {walletAddress && <WalletAddress />}
         {balance && (
           <div>
-            <div>Balance: {balance} ETH</div>
+            <div>Balance: {balance} DEV</div>
           </div>
         )}
         <div>
