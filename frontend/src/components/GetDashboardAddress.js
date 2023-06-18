@@ -132,7 +132,7 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
     <div className="w-2/3 mx-auto">
       {dashboardAddress ? (
         <div>
-          <div>Dashboard Address: {dashboardAddress}</div>
+          <div className="mt-5">Dashboard Address: {dashboardAddress}</div>
   
           <form onSubmit={handleSubmitTransaction} className="mt-4">
             {/* form inputs */}
@@ -140,7 +140,7 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
   
           <h1 className="text-2xl mt-4">My Transactions</h1>
           <div className="overflow-x-auto">
-            <table className="w-full mt-2">
+            <table className="w-full mt-2 bg-blue-900">
               <thead>
                 <tr>
                   <th className="px-4 py-2">From Address (Transaction)</th>
@@ -168,7 +168,7 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
   
           <h1 className="text-2xl mt-4">My Disputes</h1>
           <div className="overflow-x-auto">
-            <table className="w-full mt-2">
+            <table className="w-full mt-2 bg-blue-900">
               <thead>
                 <tr>
                   <th className="px-4 py-2">To Address (Dispute)</th>
@@ -190,7 +190,7 @@ const GetDashboardAddress = ({ consumerDashboardGen, signer }) => {
   
           <h1 className="text-2xl mt-4">My Protocols</h1>
           <div className="overflow-x-auto">
-            <table className="w-full mt-2">
+            <table className="w-full mt-2 bg-blue-900">
               <thead>
                 <tr>
                   <th className="px-4 py-2">Protocol Name</th>

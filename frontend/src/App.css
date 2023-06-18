@@ -12,6 +12,12 @@ body {
   color: white;
 }
 
+.text-gradient {
+  background-image: linear-gradient(to right, #00c3ff, #ff00ee);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 
 .App-logo {
   height: 40vmin;

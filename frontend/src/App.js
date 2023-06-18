@@ -46,8 +46,16 @@ function App({ provider }) {
   return (
     <Box className="min-h-screen bg-gray-900 text-white">
 
+    {/* Gradient Text */}
+      <div className="text-center py-8">
+      <h2 className="font-bold text-4xl text-gradient">
+        Aegis Protocol
+      </h2>
+    </div>
+
       {/* Header */}
-      <img src="https://uploads-ssl.webflow.com/647d37d4d622353242807240/647d9338720ca40f9f6e78a6_LogoJust.png" alt="Logo" className="h-24 mx-auto my-8" />
+      <img src="https://uploads-ssl.webflow.com/647d37d4d622353242807240/647d9338720ca40f9f6e78a6_LogoJust.png" alt="Logo" className="h-24 mx-auto mb-8 mt-1" />
+
 
       {/* Connect wallet button */}
       <Grid
